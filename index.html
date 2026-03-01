@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modulübersicht Rechtswissenschaft</title>
+<style>
+:root {
+  --bg: #f5f5f0;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fafaf7;
+  --bg-elevated: #eeeee8;
+  --border: #ddd9d0;
+  --border-light: #ccc8bf;
+  --text: #1a1a1a;
+  --text-muted: #5c5a55;
+  --text-dim: #9a978f;
+  --accent-zivil: #0e8a7e;
+  --accent-zivil-dim: rgba(14,138,126,0.08);
+  --accent-oeff: #c0392b;
+  --accent-oeff-dim: rgba(192,57,43,0.07);
+  --accent-straf: #b8860b;
+  --accent-straf-dim: rgba(184,134,11,0.07);
+  --accent-pflicht: #6c5ce7;
+  --accent-pflicht-dim: rgba(108,92,231,0.07);
+  --accent-spb: #c44569;
+  --accent-spb-dim: rgba(196,69,105,0.07);
+  --accent-exam: #2e86de;
+  --accent-exam-dim: rgba(46,134,222,0.07);
+  --success: #1e8449;
+  --success-dim: rgba(30,132,73,0.08);
+  --warning: #b7950b;
+  --warning-dim: rgba(183,149,11,0.08);
+  --danger: #c0392b;
+  --danger-dim: rgba(192,57,43,0.08);
+  --sose: #d35400;
+  --sose-dim: rgba(211,84,0,0.08);
+  --wise: #2471a3;
+  --wise-dim: rgba(36,113,163,0.08);
+  --opt: #7d3c98;
+  --opt-dim: rgba(125,60,152,0.08);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.container { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+.header { text-align: center; margin-bottom: 2.5rem; padding: 2rem 0 2.5rem; position: relative; }
+.header::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 50px; height: 2px; background: linear-gradient(90deg, var(--accent-zivil), var(--accent-oeff), var(--accent-straf)); border-radius: 1px; }
+.header h1 { font-family: Arial, Helvetica, sans-serif; font-size: 2.4rem; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 0.4rem; color: var(--text); }
+.header p { color: var(--text-muted); font-size: 0.92rem; font-weight: 300; }
+
+.semester-selector { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 2.25rem; flex-wrap: wrap; }
+.semester-selector label { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+.sem-select { background: var(--bg-card); border: 1px solid var(--border); color: var(--text); padding: 0.5rem 1rem; border-radius: 8px; font-family: Arial, Helvetica, sans-serif; font-size: 0.85rem; cursor: pointer; box-shadow: var(--shadow-sm); }
+.sem-select:focus { outline: none; border-color: var(--accent-zivil); }
+.sem-info { font-size: 0.78rem; padding: 0.35rem 0.75rem; border-radius: 6px; font-weight: 600; }
+.sem-info.sose { background: var(--sose-dim); color: var(--sose); }
+.sem-info.wise { background: var(--wise-dim); color: var(--wise); }
+
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; box-shadow: var(--shadow-sm); transition: all 0.2s ease; }
+.stat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 0.4rem; font-weight: 600; }
+.stat-value { font-family: 'Courier New', Courier, monospace; font-size: 1.7rem; font-weight: 500; }
+.stat-sub { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem; }
+.progress-bar-container { width: 100%; height: 4px; background: var(--bg-elevated); border-radius: 2px; margin-top: 0.65rem; overflow: hidden; }
+.progress-bar-fill { height: 100%; border-radius: 2px; transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+
+.info-boxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.85rem; margin-bottom: 2rem; }
+.info-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1.1rem; display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.79rem; color: var(--text-muted); line-height: 1.5; box-shadow: var(--shadow-sm); }
+.info-box .icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.05rem; }
+.info-box strong { color: var(--text); font-weight: 600; }
+
+.milestones { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 0.85rem; margin-bottom: 2rem; }
+.milestone { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; display: flex; align-items: center; gap: 0.8rem; box-shadow: var(--shadow-sm); }
+.milestone.achieved { border-color: var(--success); background: var(--success-dim); }
+.milestone-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; font-weight: 700; }
+.milestone.achieved .milestone-icon { background: var(--success-dim); color: var(--success); }
+.milestone:not(.achieved) .milestone-icon { background: var(--bg-elevated); color: var(--text-dim); }
+.milestone-info h3 { font-size: 0.82rem; font-weight: 600; margin-bottom: 0.05rem; }
+.milestone-info p { font-size: 0.72rem; color: var(--text-muted); }
+.milestone-info .lp-needed { font-family: 'Courier New', Courier, monospace; font-size: 0.7rem; color: var(--warning); margin-top: 0.15rem; font-weight: 500; }
+
+.rec-banner { background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--accent-zivil); border-radius: 10px; padding: 1.3rem; margin-bottom: 2rem; display: none; box-shadow: var(--shadow-sm); }
+.rec-banner.visible { display: block; }
+.rec-banner h3 { font-family: Arial, Helvetica, sans-serif; font-size: 1.05rem; font-weight: 400; margin-bottom: 0.7rem; }
+.rec-list { display: flex; flex-direction: column; gap: 0.35rem; }
+.rec-item { display: flex; align-items: center; gap: 0.55rem; padding: 0.5rem 0.75rem; background: var(--bg-elevated); border-radius: 7px; font-size: 0.82rem; flex-wrap: wrap; }
+.rec-tag { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.12rem 0.4rem; border-radius: 4px; flex-shrink: 0; }
+.rec-reason { font-size: 0.7rem; color: var(--text-dim); margin-left: auto; }
+.rec-section-label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-top: 0.5rem; padding: 0.2rem 0; text-transform: uppercase; letter-spacing: 0.06em; }
+.rec-item.optimization { border-left: 2px solid var(--opt); background: var(--opt-dim); }
+.rec-item.optimization .rec-reason { color: var(--opt); font-weight: 500; font-style: normal; }
+
+.toolbar { display: flex; gap: 0.65rem; margin-bottom: 1.75rem; flex-wrap: wrap; align-items: center; }
+.toolbar-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted); padding: 0.5rem 0.9rem; border-radius: 8px; font-size: 0.78rem; font-family: Arial, Helvetica, sans-serif; font-weight: 500; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 0.3rem; box-shadow: var(--shadow-sm); }
+.toolbar-btn:hover { border-color: var(--border-light); color: var(--text); box-shadow: var(--shadow-md); }
+.toolbar-spacer { flex: 1; }
+
+.phase-section { margin-bottom: 2.25rem; }
+.phase-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; cursor: pointer; user-select: none; }
+.phase-header:hover .phase-title { color: var(--text); }
+.phase-badge { font-family: 'Courier New', Courier, monospace; font-size: 0.63rem; font-weight: 500; padding: 0.22rem 0.55rem; border-radius: 5px; background: var(--bg-elevated); color: var(--text-muted); letter-spacing: 0.04em; }
+.phase-title { font-family: Arial, Helvetica, sans-serif; font-size: 1.3rem; font-weight: 400; color: var(--text-muted); transition: color 0.2s; }
+.phase-chevron { margin-left: auto; color: var(--text-dim); transition: transform 0.3s ease; font-size: 1rem; }
+.phase-header.collapsed .phase-chevron { transform: rotate(-90deg); }
+.phase-progress { font-family: 'Courier New', Courier, monospace; font-size: 0.73rem; color: var(--text-dim); }
+.phase-content { display: flex; flex-direction: column; gap: 0.5rem; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease; }
+.phase-content.hidden { max-height: 0; opacity: 0; margin: 0; }
+.rechtsgebiet-group { margin-bottom: 0.25rem; }
+.rechtsgebiet-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.35rem 0; margin-bottom: 0.4rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.4rem; }
+.rechtsgebiet-label .rg-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+.rechtsgebiet-modules { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 0.75rem; }
+
+.module-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 11px; padding: 1.15rem; transition: all 0.2s ease; position: relative; overflow: hidden; box-shadow: var(--shadow-sm); animation: fadeInUp 0.35s ease both; }
+.module-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; border-radius: 3px 0 0 3px; }
+.module-card.cat-zivil::before { background: var(--accent-zivil); }
+.module-card.cat-oeff::before { background: var(--accent-oeff); }
+.module-card.cat-straf::before { background: var(--accent-straf); }
+.module-card.cat-pflicht::before { background: var(--accent-pflicht); }
+.module-card.cat-spb::before { background: var(--accent-spb); }
+.module-card.cat-exam::before { background: var(--accent-exam); }
+.module-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.module-card.completed { opacity: 0.5; }
+.module-card.completed .module-title { text-decoration: line-through; text-decoration-color: var(--text-dim); }
+.module-card.locked { opacity: 0.4; }
+.module-card.locked::after { content: '🔒 Voraussetzung nicht erfüllt'; position: absolute; top: 0.5rem; right: 0.6rem; font-size: 0.62rem; color: var(--text-dim); background: var(--bg-elevated); padding: 0.15rem 0.4rem; border-radius: 4px; }
+
+.module-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.55rem; }
+.module-title { font-size: 0.88rem; font-weight: 600; line-height: 1.3; flex: 1; padding-right: 0.5rem; }
+.module-header-right { display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0; }
+.module-lp { font-family: 'Courier New', Courier, monospace; font-size: 0.7rem; padding: 0.15rem 0.45rem; border-radius: 5px; background: var(--bg-elevated); color: var(--text-muted); white-space: nowrap; font-weight: 500; }
+.module-anmeldung { display: flex; align-items: center; gap: 0.25rem; cursor: pointer; padding: 0.15rem 0.45rem; border-radius: 5px; border: 1px solid var(--border); font-size: 0.6rem; font-weight: 600; color: var(--text-dim); transition: all 0.15s; user-select: none; text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap; }
+.module-anmeldung:hover { border-color: var(--border-light); color: var(--text-muted); }
+.module-anmeldung.registered { background: var(--accent-zivil-dim); border-color: var(--accent-zivil); color: var(--accent-zivil); }
+.module-anmeldung .anm-check { width: 10px; height: 10px; border: 1.5px solid var(--border-light); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 0.45rem; transition: all 0.15s; }
+.module-anmeldung.registered .anm-check { background: var(--accent-zivil); border-color: var(--accent-zivil); color: white; }
+.module-status-row { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-bottom: 0.55rem; }
+.module-status-tag { font-size: 0.6rem; font-weight: 700; padding: 0.12rem 0.4rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+.module-items { display: flex; flex-direction: column; gap: 0.25rem; }
+.module-item { display: flex; align-items: flex-start; gap: 0.45rem; padding: 0.3rem 0; cursor: pointer; transition: opacity 0.15s; }
+.module-item:hover { opacity: 0.8; }
+.module-item.unavailable { opacity: 0.35; cursor: not-allowed; }
+.item-checkbox { width: 16px; height: 16px; border: 1.5px solid var(--border-light); border-radius: 4px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.15s ease; cursor: pointer; background: var(--bg-card); }
+.item-checkbox.checked { background: var(--success); border-color: var(--success); }
+.item-checkbox.checked::after { content: '✓'; color: white; font-size: 0.6rem; font-weight: 700; }
+.item-label { font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; transition: all 0.15s; flex: 1; }
+.item-label.checked { text-decoration: line-through; color: var(--text-dim); }
+.item-type { font-family: 'Courier New', Courier, monospace; font-size: 0.58rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; flex-shrink: 0; margin-top: 2px; min-width: 40px; }
+.item-sem-tag { font-size: 0.52rem; font-weight: 700; padding: 0.08rem 0.28rem; border-radius: 3px; flex-shrink: 0; margin-top: 2px; }
+.item-sem-tag.sose { background: var(--sose-dim); color: var(--sose); }
+.item-sem-tag.wise { background: var(--wise-dim); color: var(--wise); }
+
+.exam-tracker { margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--bg-elevated); }
+.exam-row { display: flex; align-items: center; gap: 0.45rem; margin-bottom: 0.35rem; font-size: 0.75rem; flex-wrap: wrap; }
+.exam-row-label { color: var(--text-muted); flex: 1; font-size: 0.73rem; }
+.attempt-dots { display: flex; gap: 0.2rem; }
+.attempt-dot { width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--border); background: var(--bg); font-size: 0.52rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; font-weight: 700; }
+.attempt-dot.passed { background: var(--success); border-color: var(--success); color: white; }
+.attempt-dot.failed { background: var(--danger); border-color: var(--danger); color: white; }
+.attempt-dot:hover { border-color: var(--text-muted); }
+
+.exam-status { font-size: 0.65rem; font-weight: 600; padding: 0.12rem 0.4rem; border-radius: 4px; margin-left: 0.3rem; white-space: nowrap; }
+.exam-status.passed { background: var(--success-dim); color: var(--success); }
+.exam-status.danger { background: var(--danger-dim); color: var(--danger); }
+.exam-status.warning { background: var(--warning-dim); color: var(--warning); }
+.exam-status.exhausted { background: var(--danger); color: white; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
+
+.wahl-section { margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--bg-elevated); }
+.wahl-entry { display: flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0; }
+.wahl-entry input[type="text"] { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 5px; padding: 0.3rem 0.5rem; font-family: Arial, Helvetica, sans-serif; font-size: 0.78rem; color: var(--text); min-width: 0; }
+.wahl-entry input[type="text"]:focus { outline: none; border-color: var(--accent-pflicht); }
+.wahl-entry input[type="number"] { width: 52px; background: var(--bg); border: 1px solid var(--border); border-radius: 5px; padding: 0.3rem 0.35rem; font-family: 'Courier New', Courier, monospace; font-size: 0.75rem; color: var(--text); text-align: center; }
+.wahl-entry input[type="number"]:focus { outline: none; border-color: var(--accent-pflicht); }
+.wahl-lp-label { font-size: 0.68rem; color: var(--text-dim); font-weight: 500; }
+.wahl-btn { background: none; border: 1px solid var(--border); border-radius: 5px; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.75rem; color: var(--text-dim); transition: all 0.15s; }
+.wahl-btn:hover { border-color: var(--text-muted); color: var(--text); }
+.wahl-btn.remove:hover { border-color: var(--danger); color: var(--danger); }
+.wahl-summary { margin-top: 0.45rem; font-size: 0.72rem; font-weight: 500; display: flex; align-items: center; gap: 0.4rem; }
+.wahl-summary .lp-count { font-family: 'Courier New', Courier, monospace; }
+.wahl-summary.enough { color: var(--success); }
+.wahl-summary.not-enough { color: var(--warning); }
+
+.sonstiges-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: 11px; padding: 1.15rem; margin-bottom: 2rem; box-shadow: var(--shadow-sm); }
+.sonstiges-section h3 { font-family: Arial, Helvetica, sans-serif; font-size: 1rem; font-weight: 400; margin-bottom: 0.65rem; }
+
+.praktika-section { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.praktika-section h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.15rem; }
+.praktika-section .praktika-hint { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.65rem; line-height: 1.5; }
+.praktika-section .praktika-hint strong { color: var(--text); }
+.praktika-combo-select { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+.praktika-combo-select label { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; }
+.praktika-combo-select select { background: var(--bg); border: 1px solid var(--border); border-radius: 5px; padding: 0.3rem 0.6rem; font-family: Arial, Helvetica, sans-serif; font-size: 0.78rem; color: var(--text); cursor: pointer; }
+.praktika-combo-select select:focus { outline: none; border-color: var(--accent-pflicht); }
+.praktika-slots { display: flex; flex-direction: column; gap: 0.6rem; }
+.praktika-slot { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.7rem 0.85rem; }
+.praktika-slot-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.45rem; }
+.praktika-slot-header .slot-label { font-size: 0.78rem; font-weight: 600; }
+.praktika-slot-header .slot-duration { font-family: 'Courier New', Courier, monospace; font-size: 0.65rem; padding: 0.1rem 0.35rem; border-radius: 4px; background: var(--accent-pflicht-dim); color: var(--accent-pflicht); font-weight: 500; }
+.praktika-slot-fields { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.4rem; }
+.praktika-slot-fields input, .praktika-slot-fields select { background: var(--bg-card); border: 1px solid var(--border); border-radius: 5px; padding: 0.3rem 0.45rem; font-family: Arial, Helvetica, sans-serif; font-size: 0.73rem; color: var(--text); }
+.praktika-slot-fields input:focus, .praktika-slot-fields select:focus { outline: none; border-color: var(--accent-pflicht); }
+.praktika-slot-fields label { font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; margin-bottom: 0.1rem; display: block; }
+.praktika-warnings { margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.praktika-warn { font-size: 0.68rem; padding: 0.3rem 0.55rem; border-radius: 5px; display: flex; align-items: center; gap: 0.3rem; }
+.praktika-warn.ok { background: var(--success-dim); color: var(--success); }
+.praktika-warn.nok { background: var(--warning-dim); color: var(--warning); }
+@media (max-width: 480px) { .praktika-slot-fields { grid-template-columns: 1fr; } }
+
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); z-index: 1000; display: none; align-items: center; justify-content: center; }
+.modal-overlay.visible { display: flex; }
+.modal { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; max-width: 480px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+.modal h3 { font-family: Arial, Helvetica, sans-serif; font-size: 1.2rem; margin-bottom: 0.85rem; }
+.modal textarea { width: 100%; min-height: 90px; background: var(--bg); border: 1px solid var(--border); border-radius: 7px; color: var(--text); font-family: 'Courier New', Courier, monospace; font-size: 0.72rem; padding: 0.65rem; resize: vertical; margin-bottom: 0.85rem; }
+.modal textarea:focus { outline: none; border-color: var(--accent-zivil); }
+.modal-actions { display: flex; gap: 0.65rem; justify-content: flex-end; }
+.modal-btn { padding: 0.5rem 1rem; border-radius: 7px; font-size: 0.8rem; font-family: Arial, Helvetica, sans-serif; font-weight: 500; cursor: pointer; border: 1px solid var(--border); transition: all 0.15s; }
+.modal-btn.primary { background: var(--accent-zivil); color: white; border-color: var(--accent-zivil); }
+.modal-btn.secondary { background: transparent; color: var(--text-muted); }
+.modal-btn:hover { opacity: 0.85; }
+.toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--text); color: var(--bg); padding: 0.65rem 1.3rem; border-radius: 9px; font-size: 0.8rem; z-index: 2000; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); pointer-events: none; font-weight: 500; }
+.toast.visible { transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 768px) {
+  .container { padding: 1.25rem 1rem 3rem; }
+  .header h1 { font-size: 1.7rem; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .phase-content { gap: 0.5rem; }
+  .rechtsgebiet-modules { grid-template-columns: 1fr; }
+  .milestones { grid-template-columns: 1fr; }
+  .info-boxes { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr; }
+  .toolbar { flex-direction: column; }
+  .toolbar-btn { width: 100%; justify-content: center; }
+}
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="header">
+    <h1>Modulübersicht Rechtswissenschaft</h1>
+    <p>Interaktive Checkliste · LP-Tracker · Semesterplanung · Klausurversuche</p>
+    <div style="margin-top:1.2rem;padding:0.85rem 1.1rem;background:var(--danger-dim);border:1px solid var(--danger);border-radius:8px;text-align:left;font-size:0.72rem;color:var(--danger);line-height:1.55;max-width:720px;margin-left:auto;margin-right:auto;">
+      <strong>⚠ Hinweis:</strong> Dieses Tool steht in <strong>keinem Zusammenhang</strong> mit der Universität Hamburg oder der Fakultät für Rechtswissenschaft. Es wurde nach bestem Wissen und Gewissen auf Grundlage der Prüfungsordnung, des Mustercurriculums und offizieller Informationsschreiben erstellt. Für Richtigkeit und Vollständigkeit der Angaben kann <strong>keine Gewähr</strong> übernommen werden. Maßgeblich sind ausschließlich die jeweils geltenden Prüfungsordnungen und Beschlüsse der Fakultät.
+    </div>
+  </header>
+
+  <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;margin-bottom:2rem;box-shadow:var(--shadow-sm);">
+    <div style="font-size:0.85rem;font-weight:700;margin-bottom:0.6rem;display:flex;align-items:center;gap:0.4rem">📅 Anmeldephasen SoSe 2026</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:0.5rem;">
+      <div style="background:var(--bg-elevated);border-radius:7px;padding:0.55rem 0.75rem;">
+        <div style="font-size:0.68rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.15rem">Anmeldephase</div>
+        <div style="font-size:0.8rem">Mo, 16.02. (ab 09:00) – Do, 05.03. (bis 13:00)</div>
+      </div>
+      <div style="background:var(--bg-elevated);border-radius:7px;padding:0.55rem 0.75rem;">
+        <div style="font-size:0.68rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.15rem">Nachmeldephase</div>
+        <div style="font-size:0.8rem">Mo, 23.03. (ab 09:00) – Do, 26.03. (bis 13:00)</div>
+      </div>
+      <div style="background:var(--bg-elevated);border-radius:7px;padding:0.55rem 0.75rem;">
+        <div style="font-size:0.68rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.15rem">Erstsemester</div>
+        <div style="font-size:0.8rem">Mo, 30.03. (ab 09:00) – Mi, 01.04. (bis 13:00)</div>
+      </div>
+      <div style="background:var(--bg-elevated);border-radius:7px;padding:0.55rem 0.75rem;">
+        <div style="font-size:0.68rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.15rem">Ummelde- & Korrekturphase</div>
+        <div style="font-size:0.8rem">Di, 07.04. (ab 09:00) – Do, 16.04. (bis 13:00)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="semester-selector">
+    <label>Aktuelles Semester:</label>
+    <select class="sem-select" id="semesterSelect" onchange="onSemesterChange()"></select>
+    <span class="sem-info" id="semInfo"></span>
+  </div>
+
+  <div class="info-boxes">
+    <div class="info-box"><span class="icon">📋</span><span><strong>Klausurversuche:</strong> 4 Versuche pro Klausur/HA. Erstversuch bei Modulanmeldung automatisch, keine Abmeldung. 2 Klausurtermine/Sem. (Erst- & Wiederholung). Wiederholungen verschiebbar. Hausarbeiten 1×/Sem. <em style="display:block;margin-top:0.3rem;color:var(--text-dim)">Tipp: Klick auf ein Versuchskästchen = bestanden (✓), Doppelklick = nicht bestanden (✗), erneuter Klick = zurücksetzen.</em></span></div>
+    <div class="info-box"><span class="icon">👥</span><span><strong>AGs:</strong> Anwesenheitspflicht. Max. 2× Fehlen. Beim 3. Fehlen: Platz verloren, AG muss komplett neu belegt werden.</span></div>
+    <div class="info-box"><span class="icon">📅</span><span><strong>Semester & LP:</strong> Sem. 1–3 jedes Semester. Ab 4. FS nur <span style="color:var(--sose);font-weight:600">SoSe</span> oder <span style="color:var(--wise);font-weight:600">WiSe</span>. LP erst bei vollständig bestandenem Modul. Module III+ erst nach I+II des Rechtsgebiets.</span></div>
+  </div>
+
+  <div class="stats-grid" id="statsGrid"></div>
+  <div class="milestones" id="milestones"></div>
+  <div class="rec-banner" id="recBanner">
+    <h3 id="recTitle">💡 Empfehlung für dieses Semester</h3>
+    <div class="rec-list" id="recList"></div>
+  </div>
+
+  <div class="toolbar">
+    <button class="toolbar-btn" onclick="expandAll()">↕ Alle aufklappen</button>
+    <button class="toolbar-btn" onclick="collapseCompleted()">✓ Erledigte einklappen</button>
+    <div class="toolbar-spacer"></div>
+    <button class="toolbar-btn" onclick="showSaveModal()">💾 Speichern</button>
+    <button class="toolbar-btn" onclick="showLoadModal()">📂 Laden</button>
+    <button class="toolbar-btn" onclick="resetAll()">↺ Reset</button>
+  </div>
+
+  <div id="phasesContainer"></div>
+  <div class="sonstiges-section" id="sonstigesSection"></div>
+</div>
+
+<div class="modal-overlay" id="saveModal"><div class="modal"><h3>Fortschritt speichern</h3><p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:0.85rem">Kopiere den Code und teile ihn mit Kommilitonen oder speichere ihn.</p><textarea id="saveData" readonly></textarea><div class="modal-actions"><button class="modal-btn secondary" onclick="closeSaveModal()">Schließen</button><button class="modal-btn primary" onclick="copySaveData()">📋 Kopieren</button></div></div></div>
+<div class="modal-overlay" id="loadModal"><div class="modal"><h3>Fortschritt laden</h3><p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:0.85rem">Füge deinen gespeicherten Code ein.</p><textarea id="loadData" placeholder="Code hier einfügen..."></textarea><div class="modal-actions"><button class="modal-btn secondary" onclick="closeLoadModal()">Abbrechen</button><button class="modal-btn primary" onclick="loadProgress()">✓ Laden</button></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+// =============================================
+// DATA - with prerequisites
+// =============================================
+const MODULES = {
+  // --- GRUNDPHASE ---
+  zivil1:   { name: 'Modul Zivilrecht I', lp: 10, cat: 'zivil', phase: 'grundphase', prereqs: [], items: [
+    { id: 'z1_vl', type: 'VL', name: 'Allgemeiner Teil des BGB', sem: 'both' },
+    { id: 'z1_ag', type: 'AG', name: 'Allgemeiner Teil des BGB', sem: 'both', isAG: true },
+    { id: 'z1_kl', type: 'Klausur', name: 'Allgemeiner Teil des BGB', sem: 'both', isExam: true },
+    { id: 'z1_ha', type: 'HA', name: 'Allgemeiner Teil des BGB', sem: 'both', isExam: true, isHA: true },
+  ]},
+  oeff1:    { name: 'Modul Öffentliches Recht I', lp: 8, cat: 'oeff', phase: 'grundphase', prereqs: [], items: [
+    { id: 'o1_vl', type: 'VL', name: 'Verfassungsrecht I: Grundrechte', sem: 'both' },
+    { id: 'o1_ag', type: 'AG', name: 'Verfassungsrecht I: Grundrechte', sem: 'both', isAG: true },
+    { id: 'o1_kl', type: 'Klausur', name: 'Verfassungsrecht I: Grundrechte', sem: 'both', isExam: true },
+  ]},
+  straf1:   { name: 'Modul Strafrecht I', lp: 7, cat: 'straf', phase: 'grundphase', prereqs: [], items: [
+    { id: 's1_vl', type: 'VL', name: 'Strafrecht Grundkurs I', sem: 'both' },
+    { id: 's1_ag', type: 'AG', name: 'Strafrecht Grundkurs I', sem: 'both', isAG: true },
+    { id: 's1_kl', type: 'Klausur', name: 'Strafrecht Grundkurs I', sem: 'both', isExam: true },
+  ]},
+  grund1:   { name: 'Modul Grundlagen I', lp: 6, cat: 'pflicht', phase: 'grundphase', prereqs: [], items: [
+    { id: 'g1_vl1', type: 'VL', name: 'Einführung in die Rechtswissenschaft', sem: 'both' },
+    { id: 'g1_vl2', type: 'VL', name: 'Einf. rechtswiss. Arbeiten', sem: 'both' },
+    { id: 'g1_vl3', type: 'VL', name: 'Grundlagen des Rechts (Grundphase)', sem: 'both' },
+    { id: 'g1_kl', type: 'Klausur', name: 'Grundlagen des Rechts (Grundphase)', sem: 'both', isExam: true },
+  ]},
+  zivil2:   { name: 'Modul Zivilrecht II', lp: 13, cat: 'zivil', phase: 'grundphase', prereqs: [], items: [
+    { id: 'z2_vl1', type: 'VL', name: 'Schuldrecht Allgemeiner Teil', sem: 'both' },
+    { id: 'z2_ag1', type: 'AG', name: 'Schuldrecht Allgemeiner Teil', sem: 'both', isAG: true },
+    { id: 'z2_vl2', type: 'VL', name: 'Sachenrecht I', sem: 'both' },
+    { id: 'z2_ag2', type: 'AG', name: 'Sachenrecht I', sem: 'both', isAG: true },
+    { id: 'z2_kl', type: 'Klausur', name: 'SchuldR AT oder SachenR I', sem: 'both', isExam: true },
+  ]},
+  oeff2:    { name: 'Modul Öffentliches Recht II', lp: 10, cat: 'oeff', phase: 'grundphase', prereqs: [], items: [
+    { id: 'o2_vl1', type: 'VL', name: 'Verfassungsrecht II: StaatsorgR', sem: 'both' },
+    { id: 'o2_vl2', type: 'VL', name: 'Europarecht', sem: 'both' },
+    { id: 'o2_ag', type: 'AG', name: 'VerfR II: StaatsorgR & EuropaR', sem: 'both', isAG: true },
+    { id: 'o2_kl', type: 'Klausur', name: 'VerfR II: StaatsorgR & EuropaR', sem: 'both', isExam: true },
+  ]},
+  straf2:   { name: 'Modul Strafrecht II', lp: 7, cat: 'straf', phase: 'grundphase', prereqs: [], items: [
+    { id: 's2_vl', type: 'VL', name: 'Strafrecht Grundkurs II', sem: 'both' },
+    { id: 's2_ag', type: 'AG', name: 'Strafrecht Grundkurs II', sem: 'both', isAG: true },
+    { id: 's2_kl', type: 'Klausur', name: 'Strafrecht Grundkurs II', sem: 'both', isExam: true },
+  ]},
+  // --- AUFBAUPHASE ---
+  zivil3:   { name: 'Modul Zivilrecht III', lp: 7, cat: 'zivil', phase: 'aufbauphase', prereqs: ['zivil1','zivil2'], items: [
+    { id: 'z3_vl', type: 'VL', name: 'Vertragliche Schuldverhältnisse', sem: 'both' },
+    { id: 'z3_ag', type: 'AG', name: 'Vertragliche Schuldverhältnisse', sem: 'both', isAG: true },
+    { id: 'z3_kl', type: 'Klausur', name: 'Vertragliche Schuldverhältnisse', sem: 'both', isExam: true },
+  ]},
+  oeff3:    { name: 'Modul Öffentliches Recht III', lp: 9, cat: 'oeff', phase: 'aufbauphase', prereqs: ['oeff1','oeff2'], items: [
+    { id: 'o3_vl', type: 'VL', name: 'Verwaltungs- & VerwaltungsprozessR', sem: 'both' },
+    { id: 'o3_ag', type: 'AG', name: 'Verwaltungs- & VerwaltungsprozessR', sem: 'both', isAG: true },
+    { id: 'o3_kl', type: 'Klausur', name: 'Verwaltungs- & VerwaltungsprozessR', sem: 'both', isExam: true },
+  ]},
+  straf3:   { name: 'Modul Strafrecht III', lp: 10, cat: 'straf', phase: 'aufbauphase', prereqs: ['straf1','straf2'], items: [
+    { id: 's3_vl', type: 'VL', name: 'Strafrecht Vermögensdelikte', sem: 'both' },
+    { id: 's3_ag', type: 'AG', name: 'Strafrecht Vermögensdelikte', sem: 'both', isAG: true },
+    { id: 's3_ha', type: 'HA', name: 'Strafrecht Vermögensdelikte', sem: 'both', isExam: true, isHA: true },
+  ]},
+  grund2:   { name: 'Modul Grundlagen II', lp: 3, cat: 'pflicht', phase: 'aufbauphase', prereqs: ['grund1'], items: [
+    { id: 'g2_vl', type: 'VL', name: 'Grundlagen des Rechts (Aufbauphase)', sem: 'both' },
+    { id: 'g2_kl', type: 'Klausur', name: 'Grundlagen des Rechts (Aufbauphase)', sem: 'both', isExam: true },
+  ]},
+  zivil4:   { name: 'Modul Zivilrecht IV', lp: 16, cat: 'zivil', phase: 'aufbauphase', prereqs: ['zivil1','zivil2'], items: [
+    { id: 'z4_vl1', type: 'VL', name: 'Sachenrecht II', sem: 'wise' },
+    { id: 'z4_vl2', type: 'VL', name: 'Handelsrecht', sem: 'wise' },
+    { id: 'z4_vl3', type: 'VL', name: 'Arbeitsrecht', sem: 'sose' },
+    { id: 'z4_vl4', type: 'VL', name: 'Gesetzliche Schuldverhältnisse', sem: 'sose' },
+    { id: 'z4_kl', type: 'Klausur', name: 'SachenR II oder Gesetzl. SchuldV', sem: 'split', isExam: true },
+  ]},
+  straf4:   { name: 'Modul Strafrecht IV', lp: 8, cat: 'straf', phase: 'aufbauphase', prereqs: ['straf1','straf2'], items: [
+    { id: 's4_vl1', type: 'VL', name: 'Internationales Strafrecht', sem: 'sose' },
+    { id: 's4_vl2', type: 'VL', name: 'Strafrecht Kollektivdelikte', sem: 'sose' },
+    { id: 's4_kl', type: 'Klausur', name: 'Internat. StrafR & Kollektivdelikte', sem: 'sose', isExam: true },
+  ]},
+  oeff4:    { name: 'Modul Öffentliches Recht IV', lp: 19, cat: 'oeff', phase: 'aufbauphase', prereqs: ['oeff1','oeff2'], items: [
+    { id: 'o4_vl1', type: 'VL', name: 'Polizeirecht', sem: 'sose' },
+    { id: 'o4_vl2', type: 'VL', name: 'Öff. Recht internat./europ. Bezüge', sem: 'sose' },
+    { id: 'o4_vl3', type: 'VL', name: 'Baurecht', sem: 'wise' },
+    { id: 'o4_vl4', type: 'VL', name: 'Umweltrecht', sem: 'wise' },
+    { id: 'o4_vl5', type: 'VL', name: 'Recht der öff. Ersatzleistung', sem: 'wise' },
+    { id: 'o4_fu', type: 'Fallüb.', name: 'Fallübungen Öff. Recht IV', sem: 'both', note: 'Empfohlen erst nach allen VLs' },
+    { id: 'o4_kl', type: 'Klausur', name: 'BauR, UmweltR, PolR, Öff.R internat.', sem: 'both', isExam: true },
+  ]},
+  straf5:   { name: 'Modul Strafrecht V', lp: 5, cat: 'straf', phase: 'aufbauphase', prereqs: ['straf1','straf2'], items: [
+    { id: 's5_vl', type: 'VL', name: 'Strafprozessrecht', sem: 'wise' },
+    { id: 's5_kl', type: 'Klausur', name: 'Strafprozessrecht', sem: 'wise', isExam: true },
+  ]},
+  zivil5:   { name: 'Modul Zivilrecht V', lp: 11, cat: 'zivil', phase: 'aufbauphase', prereqs: ['zivil1','zivil2'], items: [
+    { id: 'z5_vl1', type: 'VL', name: 'Familienrecht', sem: 'wise' },
+    { id: 'z5_vl2', type: 'VL', name: 'Erbrecht', sem: 'wise' },
+    { id: 'z5_vl3', type: 'VL', name: 'Zivilprozessrecht I', sem: 'sose' },
+    { id: 'z5_vl4', type: 'VL', name: 'Zivilprozessrecht II', sem: 'wise' },
+    { id: 'z5_vl5', type: 'VL', name: 'Gesellschaftsrecht', sem: 'sose' },
+    { id: 'z5_vl6', type: 'VL', name: 'Internationales Privatrecht', sem: 'sose' },
+  ]},
+  ha_zivil: { name: 'Hausarbeit Zivilrecht', lp: 5, cat: 'zivil', phase: 'aufbauphase', prereqs: ['zivil1','zivil2'], items: [
+    { id: 'haz_ha', type: 'HA', name: 'Hausarbeit Zivilrecht (Aufbauphase)', sem: 'both', isExam: true, isHA: true },
+  ]},
+  ha_oeff:  { name: 'Hausarbeit Öff. Recht', lp: 5, cat: 'oeff', phase: 'aufbauphase', prereqs: ['oeff1','oeff2'], items: [
+    { id: 'hao_ha', type: 'HA', name: 'Hausarbeit Öff. Recht (Aufbauphase)', sem: 'both', isExam: true, isHA: true },
+  ]},
+  wahl:     { name: 'Freier Wahlbereich', lp: 4, cat: 'pflicht', phase: 'aufbauphase', prereqs: [], isWahl: true, items: [] },
+  // --- VERTIEFUNG ---
+  spb1:     { name: 'SPB (1. Halbjahr)', lp: 8, cat: 'spb', phase: 'vertiefung', prereqs: ['_spb_zul'], items: [
+    { id: 'spb1_v', type: 'SPB', name: 'Schwerpunkt-Veranstaltungen (1. Sem.)', sem: 'both' },
+  ]},
+  spb2:     { name: 'SPB (2. Halbjahr)', lp: 8, cat: 'spb', phase: 'vertiefung', prereqs: ['_spb_zul'], items: [
+    { id: 'spb2_v', type: 'SPB', name: 'Schwerpunkt-Veranstaltungen (2. Sem.)', sem: 'both' },
+  ]},
+  ba:       { name: 'Abschlussmodul LL.B.', lp: 9, cat: 'spb', phase: 'vertiefung', prereqs: ['_spb_zul'], items: [
+    { id: 'ba_ha', type: 'BA-Arbeit', name: 'Bachelorarbeit (≙ SPB-Hausarbeit)', sem: 'both', isExam: true, isHA: true },
+  ]},
+  spb_abschluss: { name: 'SPB-Prüfung', lp: 7, cat: 'spb', phase: 'vertiefung', prereqs: ['_spb_kl'], items: [
+    { id: 'spb_kl', type: 'Klausur', name: 'SPB-Klausur', sem: 'both', isExam: true },
+    { id: 'spb_mp', type: 'Mündl.', name: 'SPB-Mündliche Prüfung', sem: 'both' },
+  ]},
+  // --- EXAMENSKURS ---
+  hek1:     { name: 'Examenskurs (1. Sem.)', lp: 30, cat: 'exam', phase: 'wiederholung', prereqs: [], items: [
+    { id: 'hek1_v', type: 'Kurs', name: 'Examenskurs (1. Semester)', sem: 'both' },
+  ]},
+  hek2:     { name: 'Examenskurs (2. Sem.)', lp: 30, cat: 'exam', phase: 'wiederholung', prereqs: [], items: [
+    { id: 'hek2_v', type: 'Kurs', name: 'Examenskurs (2. Semester)', sem: 'both' },
+  ]},
+};
+
+const PHASES = [
+  { id: 'grundphase', name: 'Grundphase', semester: '1. und 2. FS', moduleIds: ['zivil1','oeff1','straf1','grund1','zivil2','oeff2','straf2'] },
+  { id: 'aufbauphase', name: 'Aufbauphase', semester: '3. – 6. FS', moduleIds: ['zivil3','oeff3','straf3','grund2','zivil4','straf4','oeff4','straf5','zivil5','ha_zivil','ha_oeff','wahl'] },
+  { id: 'vertiefung', name: 'Vertiefungsphase', semester: '6. und 7. FS', moduleIds: ['spb1','spb2','ba','spb_abschluss'] },
+  { id: 'wiederholung', name: 'Examenskurs', semester: '8. und 9. FS', moduleIds: ['hek1','hek2'] },
+];
+
+const SONSTIGES = [
+  { id: 'son_fremd', type: 'Modul', name: 'Fremdsprachige rechtswiss. VL & Prüfung' },
+  { id: 'son_sq', type: 'Modul', name: 'Schlüsselqualifikations-VL & -Prüfung' },
+];
+
+const PRAKTIKA_COMBOS = [
+  { label: '3 × 1 Monat', slots: [{ weeks: 4, label: '1 Monat' }, { weeks: 4, label: '1 Monat' }, { weeks: 4, label: '1 Monat' }] },
+  { label: '2 Monate + 1 Monat', slots: [{ weeks: 8, label: '2 Monate' }, { weeks: 4, label: '1 Monat' }] },
+  { label: '5 Wochen + 8 Wochen', slots: [{ weeks: 5, label: '5 Wochen' }, { weeks: 8, label: '8 Wochen' }] },
+  { label: '6 Wochen + 7 Wochen', slots: [{ weeks: 6, label: '6 Wochen' }, { weeks: 7, label: '7 Wochen' }] },
+];
+
+const MILESTONES = [
+  { id: 'ms_zp', name: 'Zwischenprüfung', lp: 61, desc: 'Alle Grundphase-Module bestanden', check: 'zp' },
+  { id: 'ms_spb', name: 'SPB-Zulassung', lp: 115, desc: 'ZP + mind. 54 LP Aufbauphase', check: 'spb_zul' },
+  { id: 'ms_spbkl', name: 'SPB-Klausur', lp: 163, desc: 'ZP + alle Aufbau-Module (102 LP)', check: 'spb_kl' },
+  { id: 'ms_ba', name: 'LL.B.', lp: 180, desc: 'Bachelor of Laws', check: 'ba' },
+  { id: 'ms_spbd', name: 'SPB abgeschlossen', lp: 195, desc: 'Bachelor + SPB-Prüfungen', check: 'spb_done' },
+];
+
+// Mustercurriculum: recommended FS per module (WiSe-start). SoSe-start shifts accordingly.
+const MUSTER_WISE = { zivil1:1,oeff1:1,straf1:1,grund1:1, zivil2:2,oeff2:2,straf2:2, zivil3:3,oeff3:3,straf3:3,zivil4:3, straf4:4,oeff4:4,grund2:4,wahl:4, zivil5:5,straf5:5,ha_oeff:5, ha_zivil:6,spb1:6,ba:6, spb2:7,spb_abschluss:7, hek1:8,hek2:9 };
+const MUSTER_SOSE = { zivil1:1,oeff1:1,straf1:1,grund1:1, zivil2:2,oeff2:2,straf2:2, zivil3:3,oeff3:3,straf3:3,zivil4:3, oeff4:4,straf5:4,grund2:4,wahl:4, zivil5:5,straf4:5,ha_oeff:5, ha_zivil:6,spb1:6,ba:6, spb2:7,spb_abschluss:7, hek1:8,hek2:9 };
+
+// =============================================
+// STATE
+// =============================================
+let state = {}, examState = {}, regState = {}, wahlEntries = [{ name: '', lp: 2, done: false }];
+let currentSemester = '2_sose';
+let praktika = { combo: 0, slots: [] }; // combo index, slots: [{stelle:'', rechtsgebiet:'', ort:'', done:false}]
+
+function initState() {
+  state = {}; examState = {}; regState = {};
+  Object.keys(MODULES).forEach(modId => {
+    regState[modId] = false;
+    MODULES[modId].items.forEach(item => {
+      state[item.id] = false;
+      if (item.isExam) examState[item.id] = [0,0,0,0];
+    });
+  });
+  SONSTIGES.forEach(i => state[i.id] = false);
+  wahlEntries = [{ name: '', lp: 2, done: false }];
+  initPraktika(0);
+}
+
+function initPraktika(comboIdx) {
+  const combo = PRAKTIKA_COMBOS[comboIdx];
+  praktika = { combo: comboIdx, slots: combo.slots.map(s => ({ label: s.label, stelle: '', rechtsgebiet: '', ort: '', done: false })) };
+}
+
+function save() { try { localStorage.setItem('jura_v4', JSON.stringify({ state, examState, regState, currentSemester, wahlEntries, praktika })); } catch(e){} }
+function load() {
+  try {
+    const d = JSON.parse(localStorage.getItem('jura_v4'));
+    if (!d) return;
+    if (d.state) Object.keys(d.state).forEach(k => { if (k in state) state[k] = d.state[k]; });
+    if (d.examState) Object.keys(d.examState).forEach(k => { if (k in examState) examState[k] = d.examState[k]; });
+    if (d.regState) Object.keys(d.regState).forEach(k => { if (k in regState) regState[k] = d.regState[k]; });
+    if (d.currentSemester) currentSemester = d.currentSemester;
+    if (d.wahlEntries) wahlEntries = d.wahlEntries;
+    if (d.praktika) praktika = d.praktika;
+  } catch(e){}
+}
+
+// =============================================
+// HELPERS
+// =============================================
+function semType() { return currentSemester.includes('sose') ? 'sose' : 'wise'; }
+function fsNum() { return parseInt(currentSemester.split('_')[0]); }
+function startSem() { // determine if study started in WiSe or SoSe
+  const fs = fsNum(); const st = semType();
+  // FS 1 WiSe = WiSe start; FS 1 SoSe = SoSe start
+  // FS 2: if WiSe → started SoSe; if SoSe → started WiSe
+  return (fs % 2 === 1) ? st : (st === 'sose' ? 'wise' : 'sose');
+}
+function getMuster() { return startSem() === 'wise' ? MUSTER_WISE : MUSTER_SOSE; }
+function isAvail(item) { if (item.sem === 'both' || item.sem === 'split') return true; return item.sem === semType(); }
+function getWahlLP() { return wahlEntries.filter(e => e.done).reduce((s,e) => s + (e.lp||0), 0); }
+function isWahlComplete() { return getWahlLP() >= 4; }
+
+function isModComplete(modId) {
+  const mod = MODULES[modId];
+  if (!mod) return false;
+  if (mod.isWahl) return isWahlComplete();
+  return mod.items.every(i => state[i.id]);
+}
+
+function getModLP(modId) { return isModComplete(modId) ? MODULES[modId].lp : 0; }
+
+function getTotalLP() {
+  let t = 0;
+  Object.keys(MODULES).forEach(id => t += getModLP(id));
+  return t;
+}
+
+function getPhaseLPStats(phaseId) {
+  const phase = PHASES.find(p => p.id === phaseId);
+  if (!phase) return { earned: 0, total: 0 };
+  let earned = 0, total = 0;
+  phase.moduleIds.forEach(id => { total += MODULES[id].lp; earned += getModLP(id); });
+  return { earned, total };
+}
+
+function isGPDone() { return getPhaseLPStats('grundphase').earned >= 61; }
+function aufbauLP() { return getPhaseLPStats('aufbauphase').earned; }
+
+function prereqsMet(modId) {
+  const mod = MODULES[modId];
+  if (!mod) return false;
+  return mod.prereqs.every(p => {
+    if (p === '_spb_zul') return isGPDone() && aufbauLP() >= 54 && getTotalLP() >= 115;
+    if (p === '_spb_kl') return isGPDone() && aufbauLP() >= 102 && getTotalLP() >= 163;
+    return isModComplete(p);
+  });
+}
+
+function checkMilestone(ms) {
+  const t = getTotalLP();
+  switch(ms.check) {
+    case 'zp': return isGPDone();
+    case 'spb_zul': return isGPDone() && aufbauLP() >= 54 && t >= 115;
+    case 'spb_kl': return isGPDone() && aufbauLP() >= 102 && t >= 163;
+    case 'ba': return t >= 180;
+    case 'spb_done': return t >= 195;
+    default: return false;
+  }
+}
+
+// =============================================
+// RECOMMENDATIONS
+// =============================================
+function getRecommendations() {
+  const recs = [];
+  const opts = [];
+  const st = semType();
+  const fs = fsNum();
+  const muster = getMuster();
+
+  // Collect: unlocked, not complete, sorted by Muster FS
+  const available = [];
+  Object.keys(MODULES).forEach(modId => {
+    const mod = MODULES[modId];
+    if (isModComplete(modId)) return;
+    if (mod.isWahl) {
+      if (!isWahlComplete()) available.push({ modId, musterFS: muster[modId] || 99, priority: muster[modId] || 99 });
+      return;
+    }
+    const unlocked = prereqsMet(modId);
+    if (!unlocked) return;
+    // Check if any items are available this semester
+    const availItems = mod.items.filter(i => !state[i.id] && isAvail(i));
+    if (availItems.length > 0) {
+      available.push({ modId, musterFS: muster[modId] || 99, availItems, priority: muster[modId] || 99 });
+    }
+  });
+
+  // Sort by Mustercurriculum FS
+  available.sort((a, b) => a.priority - b.priority);
+
+  // Standard recommendations: modules at or below current FS in Muster
+  const standard = available.filter(a => a.musterFS <= fs);
+  const ahead = available.filter(a => a.musterFS > fs);
+
+  standard.forEach(a => {
+    const mod = MODULES[a.modId];
+    const label = a.musterFS <= fs ? `Muster: ${a.musterFS}. FS` : '';
+    const availCount = a.availItems ? a.availItems.filter(i => !state[i.id]).length : 0;
+    recs.push({
+      module: mod.name, lp: mod.lp, cat: mod.cat,
+      reason: availCount > 0 ? `${availCount} VL(en) dieses Sem.` : '',
+      musterFS: a.musterFS
+    });
+  });
+
+  // Optimization suggestions: modules from future FS that are already unlocked
+  ahead.forEach(a => {
+    const mod = MODULES[a.modId];
+    opts.push({
+      module: mod.name, lp: mod.lp, cat: mod.cat,
+      reason: `Vorziehbar (Muster: ${a.musterFS}. FS)`,
+      musterFS: a.musterFS
+    });
+  });
+
+  return { standard: recs.slice(0, 8), optimizations: opts.slice(0, 5) };
+}
+
+// =============================================
+// RENDER
+// =============================================
+function catColor(c) { return `var(--accent-${c})`; }
+function catBg(c) { return `var(--accent-${c}-dim)`; }
+function catLabel(c) { return { zivil:'Zivilrecht', oeff:'Öff. Recht', straf:'Strafrecht', pflicht:'Pflicht', spb:'SPB', exam:'Examen' }[c]||''; }
+function semTagHTML(sem) {
+  if (sem === 'both') return '';
+  if (sem === 'sose') return '<span class="item-sem-tag sose">SoSe</span>';
+  if (sem === 'wise') return '<span class="item-sem-tag wise">WiSe</span>';
+  if (sem === 'split') return '<span class="item-sem-tag sose">S</span><span class="item-sem-tag wise">W</span>';
+  return '';
+}
+function escHTML(s) { return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function buildSemesterOptions() {
+  const sel = document.getElementById('semesterSelect');
+  sel.innerHTML = '';
+  // Common pattern: WiSe start or SoSe start
+  const pairs = [
+    ['1_wise','1. FS – WiSe'],['1_sose','1. FS – SoSe'],
+    ['2_sose','2. FS – SoSe'],['2_wise','2. FS – WiSe'],
+    ['3_wise','3. FS – WiSe'],['3_sose','3. FS – SoSe'],
+    ['4_sose','4. FS – SoSe'],['4_wise','4. FS – WiSe'],
+    ['5_wise','5. FS – WiSe'],['5_sose','5. FS – SoSe'],
+    ['6_sose','6. FS – SoSe'],['6_wise','6. FS – WiSe'],
+    ['7_wise','7. FS – WiSe'],['7_sose','7. FS – SoSe'],
+    ['8_sose','8. FS – SoSe'],['8_wise','8. FS – WiSe'],
+    ['9_wise','9. FS – WiSe'],['9_sose','9. FS – SoSe'],
+  ];
+  pairs.forEach(([v,t]) => { const o = document.createElement('option'); o.value = v; o.textContent = t; sel.appendChild(o); });
+  sel.value = currentSemester;
+}
+
+function renderSemSel() {
+  document.getElementById('semesterSelect').value = currentSemester;
+  const info = document.getElementById('semInfo');
+  const t = semType();
+  info.className = `sem-info ${t}`;
+  info.textContent = t === 'sose' ? '☀️ Sommersemester' : '❄️ Wintersemester';
+}
+
+function renderStats() {
+  const t = getTotalLP(), g = getPhaseLPStats('grundphase'), a = getPhaseLPStats('aufbauphase');
+  let checked = Object.values(state).filter(v=>v).length + wahlEntries.filter(e=>e.done).length;
+  let total = Object.keys(state).length + wahlEntries.length;
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card"><div class="stat-label">Gesamt-LP</div><div class="stat-value" style="color:var(--accent-zivil)">${t}</div><div class="stat-sub">von 255 LP</div><div class="progress-bar-container"><div class="progress-bar-fill" style="width:${(t/255)*100}%;background:var(--accent-zivil)"></div></div></div>
+    <div class="stat-card"><div class="stat-label">Grundphase</div><div class="stat-value" style="color:${g.earned>=61?'var(--success)':'var(--accent-oeff)'}">${g.earned}</div><div class="stat-sub">von ${g.total} LP (ZP: 61)</div><div class="progress-bar-container"><div class="progress-bar-fill" style="width:${(g.earned/g.total)*100}%;background:${g.earned>=61?'var(--success)':'var(--accent-oeff)'}"></div></div></div>
+    <div class="stat-card"><div class="stat-label">Aufbauphase</div><div class="stat-value" style="color:var(--accent-straf)">${a.earned}</div><div class="stat-sub">von ${a.total} LP</div><div class="progress-bar-container"><div class="progress-bar-fill" style="width:${(a.earned/a.total)*100}%;background:var(--accent-straf)"></div></div></div>
+    <div class="stat-card"><div class="stat-label">Fortschritt</div><div class="stat-value" style="color:var(--accent-pflicht)">${total>0?Math.round((checked/total)*100):0}%</div><div class="stat-sub">${checked}/${total} Aufgaben</div><div class="progress-bar-container"><div class="progress-bar-fill" style="width:${total>0?(checked/total)*100:0}%;background:var(--accent-pflicht)"></div></div></div>`;
+}
+
+function renderMilestones() {
+  const t = getTotalLP();
+  document.getElementById('milestones').innerHTML = MILESTONES.map(ms => {
+    const ach = checkMilestone(ms); const need = Math.max(0, ms.lp - t);
+    return `<div class="milestone ${ach?'achieved':''}"><div class="milestone-icon">${ach?'✓':'○'}</div><div class="milestone-info"><h3>${ms.name} (${ms.lp} LP)</h3><p>${ms.desc}</p>${!ach&&need>0?`<div class="lp-needed">Noch ${need} LP</div>`:''}</div></div>`;
+  }).join('');
+}
+
+function renderRecs() {
+  const { standard, optimizations } = getRecommendations();
+  const b = document.getElementById('recBanner'), l = document.getElementById('recList');
+  if (!standard.length && !optimizations.length) { b.classList.remove('visible'); return; }
+  b.classList.add('visible');
+  let html = '';
+  if (standard.length) {
+    html += '<div class="rec-section-label">📌 Laut Mustercurriculum</div>';
+    html += standard.map(r => `<div class="rec-item"><span class="rec-tag" style="color:${catColor(r.cat)};background:${catBg(r.cat)}">${catLabel(r.cat)}</span><span style="flex:1">${r.module}</span><span class="rec-reason">${r.reason}</span><span style="font-family:'Courier New',Courier,monospace;font-size:0.7rem;color:var(--text-dim)">${r.lp} LP</span></div>`).join('');
+  }
+  if (optimizations.length) {
+    html += '<div class="rec-section-label">⚡ Optimierung – vorziehbar</div>';
+    html += optimizations.map(r => `<div class="rec-item optimization"><span class="rec-tag" style="color:${catColor(r.cat)};background:${catBg(r.cat)}">${catLabel(r.cat)}</span><span style="flex:1">${r.module}</span><span class="rec-reason">${r.reason}</span><span style="font-family:'Courier New',Courier,monospace;font-size:0.7rem;color:var(--text-dim)">${r.lp} LP</span></div>`).join('');
+  }
+  l.innerHTML = html;
+}
+
+function renderPhases() {
+  const rgOrder = ['zivil','oeff','straf','pflicht','spb','exam'];
+  const rgNames = { zivil:'Zivilrecht', oeff:'Öffentliches Recht', straf:'Strafrecht', pflicht:'Weitere Pflichtveranstaltungen', spb:'Schwerpunktbereich', exam:'Examenskurs' };
+
+  document.getElementById('phasesContainer').innerHTML = PHASES.map(phase => {
+    const s = getPhaseLPStats(phase.id);
+    // Group modules by cat
+    const groups = {};
+    phase.moduleIds.forEach(id => {
+      const cat = MODULES[id].cat;
+      if (!groups[cat]) groups[cat] = [];
+      groups[cat].push(id);
+    });
+    const groupsHTML = rgOrder.filter(c => groups[c]).map(cat => {
+      const mods = groups[cat];
+      return `<div class="rechtsgebiet-group">
+        <div class="rechtsgebiet-label"><span class="rg-dot" style="background:${catColor(cat)}"></span><span style="color:${catColor(cat)}">${rgNames[cat]}</span></div>
+        <div class="rechtsgebiet-modules">
+          ${mods.map(id => MODULES[id].isWahl ? renderWahl(MODULES[id]) : renderMod(id)).join('')}
+        </div>
+      </div>`;
+    }).join('');
+
+    return `<div class="phase-section" data-phase="${phase.id}">
+      <div class="phase-header" onclick="togglePhase('${phase.id}')">
+        <span class="phase-badge">${phase.semester}</span><span class="phase-title">${phase.name}</span>
+        <span class="phase-progress">${s.earned}/${s.total} LP</span><span class="phase-chevron">▾</span>
+      </div>
+      <div class="phase-content" id="phase-${phase.id}">
+        ${groupsHTML}
+      </div></div>`;
+  }).join('');
+}
+
+function renderMod(modId) {
+  const mod = MODULES[modId];
+  const done = isModComplete(modId);
+  const locked = !prereqsMet(modId);
+  let tags = '';
+  const sems = [...new Set(mod.items.map(i=>i.sem).filter(s=>s!=='both'))];
+  if (sems.includes('sose')) tags += '<span class="module-status-tag" style="background:var(--sose-dim);color:var(--sose)">SoSe</span>';
+  if (sems.includes('wise')) tags += '<span class="module-status-tag" style="background:var(--wise-dim);color:var(--wise)">WiSe</span>';
+  if (done) tags += '<span class="module-status-tag" style="background:var(--success-dim);color:var(--success)">✓ Bestanden</span>';
+  if (locked && !done) tags += '<span class="module-status-tag" style="background:var(--bg-elevated);color:var(--text-dim)">🔒 Gesperrt</span>';
+
+  const examItems = mod.items.filter(i=>i.isExam);
+  let examHTML = '';
+  if (examItems.length && !done) {
+    examHTML = '<div class="exam-tracker">' + examItems.map(i => {
+      const att = examState[i.id]||[0,0,0,0];
+      const passed = att.some(v=>v===1);
+      const failCount = att.filter(v=>v===-1).length;
+      const usedCount = att.filter(v=>v!==0).length;
+      const remaining = 4 - usedCount;
+      let statusHTML = '';
+      if (passed) {
+        statusHTML = '<span class="exam-status passed">✓ Bestanden</span>';
+      } else if (failCount >= 4) {
+        statusHTML = '<span class="exam-status exhausted">✗ Endgültig nicht bestanden</span>';
+      } else if (failCount === 3) {
+        statusHTML = '<span class="exam-status danger">⚠ Letzter Versuch!</span>';
+      } else if (failCount === 2) {
+        statusHTML = '<span class="exam-status warning">2× nicht bestanden</span>';
+      } else if (failCount === 1) {
+        statusHTML = '<span class="exam-status warning">1× nicht bestanden</span>';
+      }
+      return `<div class="exam-row"><span class="exam-row-label">${i.isHA?'📝':'📄'} ${i.name} ${i.isHA?'(1×/Sem.)':'(2 Termine/Sem.)'}</span><div class="attempt-dots">${att.map((a,j)=>`<div class="attempt-dot ${a===1?'passed':a===-1?'failed':''}" onclick="event.stopPropagation();cycleAttempt('${i.id}',${j})" title="Versuch ${j+1}: ${a===1?'Bestanden':a===-1?'Nicht bestanden':'Offen'}">${a===1?'✓':a===-1?'✗':j+1}</div>`).join('')}</div>${statusHTML}</div>`;
+    }).join('') + '</div>';
+  }
+
+  const isReg = regState[modId];
+  const regHTML = !done && !locked ? `<div class="module-anmeldung ${isReg?'registered':''}" onclick="event.stopPropagation();toggleReg('${modId}')" title="Anmeldung markieren"><span class="anm-check">${isReg?'✓':''}</span>Angemeldet</div>` : '';
+
+  return `<div class="module-card cat-${mod.cat} ${done?'completed':''} ${locked&&!done?'locked':''}" data-module="${modId}">
+    <div class="module-header"><div class="module-title">${mod.name}</div><div class="module-header-right">${regHTML}<div class="module-lp">${mod.lp} LP</div></div></div>
+    ${tags?`<div class="module-status-row">${tags}</div>`:''}
+    <div class="module-items">${mod.items.map(i => {
+      const av = isAvail(i); const isLocked = locked && !state[i.id];
+      return `<div class="module-item ${(!av&&!state[i.id])||isLocked?'unavailable':''}" onclick="${isLocked?`showToast('Voraussetzung nicht erfüllt')`:(!av&&!state[i.id])?`showToast('Nicht in diesem Semester')`:`toggleItem('${i.id}')`}">
+        <div class="item-checkbox ${state[i.id]?'checked':''}"></div>
+        <span class="item-type">${i.type}</span>
+        <span class="item-label ${state[i.id]?'checked':''}">${i.name}</span>
+        ${semTagHTML(i.sem)}
+        ${i.note&&!state[i.id]?`<span style="font-size:0.58rem;color:var(--accent-exam);cursor:help;border:1px solid var(--accent-exam);border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px" title="${i.note}">i</span>`:''}
+      </div>`;
+    }).join('')}</div>${examHTML}</div>`;
+}
+
+function renderWahl(mod) {
+  const complete = isWahlComplete();
+  const totalWLP = getWahlLP();
+  let tags = complete ? '<span class="module-status-tag" style="background:var(--success-dim);color:var(--success)">✓ Bestanden</span>' : '';
+  return `<div class="module-card cat-${mod.cat} ${complete?'completed':''}" data-module="wahl">
+    <div class="module-header"><div class="module-title">${mod.name}</div><div class="module-lp">mind. ${mod.lp} LP</div></div>
+    ${tags?`<div class="module-status-row">${tags}</div>`:''}
+    <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem">Gesamt-universitäre oder fakultätseigene Veranstaltungen. Mind. 4 LP.</div>
+    <div class="wahl-items">${wahlEntries.map((e,i)=>`<div class="wahl-entry">
+      <div class="item-checkbox ${e.done?'checked':''}" onclick="toggleWahl(${i})" style="cursor:pointer"></div>
+      <input type="text" value="${escHTML(e.name)}" placeholder="Veranstaltungsname..." onchange="updateWN(${i},this.value)" onclick="event.stopPropagation()">
+      <input type="number" value="${e.lp}" min="1" max="30" onchange="updateWLP(${i},this.value)" onclick="event.stopPropagation()">
+      <span class="wahl-lp-label">LP</span>
+      ${wahlEntries.length>1?`<button class="wahl-btn remove" onclick="event.stopPropagation();removeWahl(${i})">✕</button>`:''}
+    </div>`).join('')}</div>
+    <div style="margin-top:0.45rem;display:flex;align-items:center;gap:0.5rem">
+      <button class="wahl-btn" onclick="event.stopPropagation();addWahl()" style="font-size:0.85rem">+</button>
+      <div class="wahl-summary ${complete?'enough':'not-enough'}"><span class="lp-count">${totalWLP}/4 LP</span><span>${complete?'✓ Erfüllt':'– noch '+(4-totalWLP)+' LP nötig'}</span></div>
+    </div></div>`;
+}
+
+function renderSonstiges() {
+  const rechtsgebiete = ['Zivilrecht','Öffentliches Recht','Strafrecht'];
+  
+  // Praktika validation
+  const doneSlots = praktika.slots.filter(s => s.done);
+  const rgs = [...new Set(doneSlots.map(s => s.rechtsgebiet).filter(r => r))];
+  const hasHamburg = doneSlots.some(s => s.ort.toLowerCase().includes('hamburg'));
+  const allDone = praktika.slots.every(s => s.done);
+  const minTwoRG = rgs.length >= 2;
+
+  let warningsHTML = '';
+  if (doneSlots.length > 0) {
+    warningsHTML = '<div class="praktika-warnings">';
+    warningsHTML += `<div class="praktika-warn ${minTwoRG?'ok':'nok'}">${minTwoRG?'✓':'⚠'} Mind. 2 verschiedene Rechtsgebiete ${minTwoRG?`(${rgs.join(', ')})`:`(bisher: ${rgs.length})`}</div>`;
+    warningsHTML += `<div class="praktika-warn ${hasHamburg?'ok':'nok'}">${hasHamburg?'✓':'⚠'} Mind. eine Stelle in Hamburg</div>`;
+    if (allDone && minTwoRG && hasHamburg) {
+      warningsHTML += '<div class="praktika-warn ok">✓ Praktika vollständig erfüllt</div>';
+    }
+    warningsHTML += '</div>';
+  }
+
+  document.getElementById('sonstigesSection').innerHTML = `
+    <h3>Weitere Voraussetzungen</h3>
+    <div class="module-items" style="margin-top:0.65rem">
+      ${SONSTIGES.map(i=>`<div class="module-item" onclick="toggleItem('${i.id}')"><div class="item-checkbox ${state[i.id]?'checked':''}"></div><span class="item-type">${i.type}</span><span class="item-label ${state[i.id]?'checked':''}">${i.name}</span></div>`).join('')}
+    </div>
+    <div class="praktika-section">
+      <h4>Praktika (3 Monate praktische Studienzeiten)</h4>
+      <div class="praktika-hint">
+        Mind. <strong>2 verschiedene Rechtsgebiete</strong>, mind. <strong>eine Stelle in Hamburg</strong>. Zeitaufteilung wählbar:
+      </div>
+      <div class="praktika-combo-select">
+        <label>Aufteilung:</label>
+        <select onchange="changePraktikaCombo(this.value)">
+          ${PRAKTIKA_COMBOS.map((c,i) => `<option value="${i}" ${praktika.combo===i?'selected':''}>${c.label}</option>`).join('')}
+        </select>
+      </div>
+      <div class="praktika-slots">
+        ${praktika.slots.map((slot, i) => `
+          <div class="praktika-slot">
+            <div class="praktika-slot-header">
+              <div class="item-checkbox ${slot.done?'checked':''}" onclick="togglePraktikum(${i})" style="cursor:pointer"></div>
+              <span class="slot-label">Praktikum ${i+1}</span>
+              <span class="slot-duration">${slot.label}</span>
+            </div>
+            <div class="praktika-slot-fields">
+              <div>
+                <label>Stelle / Arbeitgeber</label>
+                <input type="text" value="${escHTML(slot.stelle)}" placeholder="z.B. Kanzlei Müller" onchange="updatePraktikum(${i},'stelle',this.value)" onclick="event.stopPropagation()">
+              </div>
+              <div>
+                <label>Rechtsgebiet</label>
+                <select onchange="updatePraktikum(${i},'rechtsgebiet',this.value)" onclick="event.stopPropagation()">
+                  <option value="">– wählen –</option>
+                  ${rechtsgebiete.map(r => `<option value="${r}" ${slot.rechtsgebiet===r?'selected':''}>${r}</option>`).join('')}
+                </select>
+              </div>
+              <div>
+                <label>Ort</label>
+                <input type="text" value="${escHTML(slot.ort)}" placeholder="z.B. Hamburg" onchange="updatePraktikum(${i},'ort',this.value)" onclick="event.stopPropagation()">
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      ${warningsHTML}
+    </div>`;
+}
+
+function renderAll() { renderSemSel(); renderStats(); renderMilestones(); renderRecs(); renderPhases(); renderSonstiges(); }
+
+// =============================================
+// INTERACTIONS
+// =============================================
+function toggleItem(id) {
+  state[id] = !state[id];
+  if (state[id] && examState[id]) { const fi = examState[id].findIndex(v=>v===0); if (fi>=0 && !examState[id].some(v=>v===1)) examState[id][fi]=1; }
+  if (!state[id] && examState[id]) examState[id] = [0,0,0,0];
+  save(); renderAll();
+}
+function toggleReg(modId) {
+  regState[modId] = !regState[modId];
+  save(); renderAll();
+}
+function cycleAttempt(iid, idx) {
+  if (!examState[iid]) return;
+  const c = examState[iid][idx];
+  examState[iid][idx] = c===0?1:c===1?-1:0;
+  state[iid] = examState[iid].some(v=>v===1);
+  save(); renderAll();
+}
+function onSemesterChange() { currentSemester = document.getElementById('semesterSelect').value; save(); renderAll(); }
+function addWahl() { wahlEntries.push({ name: '', lp: 2, done: false }); save(); renderAll(); }
+function removeWahl(i) { if (wahlEntries.length<=1) return; wahlEntries.splice(i,1); save(); renderAll(); }
+function toggleWahl(i) { wahlEntries[i].done = !wahlEntries[i].done; save(); renderAll(); }
+function updateWN(i,v) { wahlEntries[i].name = v; save(); }
+function updateWLP(i,v) { wahlEntries[i].lp = Math.max(1,parseInt(v)||1); save(); renderAll(); }
+function changePraktikaCombo(idx) {
+  idx = parseInt(idx);
+  const oldSlots = praktika.slots;
+  initPraktika(idx);
+  // preserve data from old slots where possible
+  praktika.slots.forEach((s, i) => { if (oldSlots[i]) { s.stelle = oldSlots[i].stelle; s.rechtsgebiet = oldSlots[i].rechtsgebiet; s.ort = oldSlots[i].ort; s.done = oldSlots[i].done; } });
+  save(); renderAll();
+}
+function togglePraktikum(i) { praktika.slots[i].done = !praktika.slots[i].done; save(); renderAll(); }
+function updatePraktikum(i, field, val) { praktika.slots[i][field] = val; save(); renderAll(); }
+function togglePhase(pid) { const s=document.querySelector(`[data-phase="${pid}"]`); s.querySelector('.phase-header').classList.toggle('collapsed'); s.querySelector('.phase-content').classList.toggle('hidden'); }
+function expandAll() { document.querySelectorAll('.phase-content').forEach(e=>e.classList.remove('hidden')); document.querySelectorAll('.phase-header').forEach(e=>e.classList.remove('collapsed')); }
+function collapseCompleted() { PHASES.forEach(p=>{const s=getPhaseLPStats(p.id);if(s.earned===s.total&&s.total>0){const el=document.querySelector(`[data-phase="${p.id}"]`);if(el){el.querySelector('.phase-header').classList.add('collapsed');el.querySelector('.phase-content').classList.add('hidden');}}}); }
+
+function showSaveModal() { document.getElementById('saveData').value=btoa(unescape(encodeURIComponent(JSON.stringify({state,examState,regState,currentSemester,wahlEntries,praktika})))); document.getElementById('saveModal').classList.add('visible'); }
+function closeSaveModal() { document.getElementById('saveModal').classList.remove('visible'); }
+function copySaveData() { const t=document.getElementById('saveData');t.select();navigator.clipboard.writeText(t.value).then(()=>showToast('Kopiert!')).catch(()=>{document.execCommand('copy');showToast('Kopiert!');}); }
+function showLoadModal() { document.getElementById('loadData').value=''; document.getElementById('loadModal').classList.add('visible'); }
+function closeLoadModal() { document.getElementById('loadModal').classList.remove('visible'); }
+function loadProgress() { try{const d=JSON.parse(decodeURIComponent(escape(atob(document.getElementById('loadData').value.trim()))));if(d.state)Object.keys(d.state).forEach(k=>{if(k in state)state[k]=d.state[k];});if(d.examState)Object.keys(d.examState).forEach(k=>{if(k in examState)examState[k]=d.examState[k];});if(d.regState)Object.keys(d.regState).forEach(k=>{if(k in regState)regState[k]=d.regState[k];});if(d.currentSemester)currentSemester=d.currentSemester;if(d.wahlEntries)wahlEntries=d.wahlEntries;if(d.praktika)praktika=d.praktika;save();renderAll();closeLoadModal();showToast('Geladen!');}catch(e){showToast('Ungültiger Code!');} }
+function resetAll() { if(confirm('Alles zurücksetzen?')){initState();save();renderAll();showToast('Zurückgesetzt.');} }
+function showToast(msg) { const t=document.getElementById('toast');t.textContent=msg;t.classList.add('visible');setTimeout(()=>t.classList.remove('visible'),2400); }
+
+document.getElementById('saveModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeSaveModal();});
+document.getElementById('loadModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLoadModal();});
+
+// INIT
+initState(); load(); buildSemesterOptions(); renderAll();
+</script>
+</body>
+</html>
