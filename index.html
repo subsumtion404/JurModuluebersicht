@@ -213,17 +213,6 @@ body { font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: 
 .praktika-warn.nok { background: var(--warning-dim); color: var(--warning); }
 @media (max-width: 480px) { .praktika-slot-fields { grid-template-columns: 1fr; } }
 
-.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); z-index: 1000; display: none; align-items: center; justify-content: center; }
-.modal-overlay.visible { display: flex; }
-.modal { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; max-width: 480px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
-.modal h3 { font-family: Arial, Helvetica, sans-serif; font-size: 1.2rem; margin-bottom: 0.85rem; }
-.modal textarea { width: 100%; min-height: 90px; background: var(--bg); border: 1px solid var(--border); border-radius: 7px; color: var(--text); font-family: 'Courier New', Courier, monospace; font-size: 0.72rem; padding: 0.65rem; resize: vertical; margin-bottom: 0.85rem; }
-.modal textarea:focus { outline: none; border-color: var(--accent-zivil); }
-.modal-actions { display: flex; gap: 0.65rem; justify-content: flex-end; }
-.modal-btn { padding: 0.5rem 1rem; border-radius: 7px; font-size: 0.8rem; font-family: Arial, Helvetica, sans-serif; font-weight: 500; cursor: pointer; border: 1px solid var(--border); transition: all 0.15s; }
-.modal-btn.primary { background: var(--accent-zivil); color: white; border-color: var(--accent-zivil); }
-.modal-btn.secondary { background: transparent; color: var(--text-muted); }
-.modal-btn:hover { opacity: 0.85; }
 .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--text); color: var(--bg); padding: 0.65rem 1.3rem; border-radius: 9px; font-size: 0.8rem; z-index: 2000; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); pointer-events: none; font-weight: 500; }
 .toast.visible { transform: translateX(-50%) translateY(0); }
 
@@ -308,8 +297,7 @@ body { font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: 
   <div class="sonstiges-section" id="sonstigesSection"></div>
 </div>
 
-<div class="modal-overlay" id="saveModal"><div class="modal"><h3>Fortschritt speichern</h3><p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:0.85rem">Kopiere den Code und teile ihn mit Kommilitonen oder speichere ihn.</p><textarea id="saveData" readonly></textarea><div class="modal-actions"><button class="modal-btn secondary" onclick="closeSaveModal()">Schließen</button><button class="modal-btn primary" onclick="copySaveData()">📋 Kopieren</button></div></div></div>
-<div class="modal-overlay" id="loadModal"><div class="modal"><h3>Fortschritt laden</h3><p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:0.85rem">Füge deinen gespeicherten Code ein.</p><textarea id="loadData" placeholder="Code hier einfügen..."></textarea><div class="modal-actions"><button class="modal-btn secondary" onclick="closeLoadModal()">Abbrechen</button><button class="modal-btn primary" onclick="loadProgress()">✓ Laden</button></div></div></div>
+<input type="file" id="fileInput" accept=".json" style="display:none" onchange="loadFromFile(this)">
 <div class="toast" id="toast"></div>
 
 <script>
@@ -933,17 +921,41 @@ function togglePhase(pid) { const s=document.querySelector(`[data-phase="${pid}"
 function expandAll() { document.querySelectorAll('.phase-content').forEach(e=>e.classList.remove('hidden')); document.querySelectorAll('.phase-header').forEach(e=>e.classList.remove('collapsed')); }
 function collapseCompleted() { PHASES.forEach(p=>{const s=getPhaseLPStats(p.id);if(s.earned===s.total&&s.total>0){const el=document.querySelector(`[data-phase="${p.id}"]`);if(el){el.querySelector('.phase-header').classList.add('collapsed');el.querySelector('.phase-content').classList.add('hidden');}}}); }
 
-function showSaveModal() { document.getElementById('saveData').value=btoa(unescape(encodeURIComponent(JSON.stringify({state,examState,regState,currentSemester,wahlEntries,praktika})))); document.getElementById('saveModal').classList.add('visible'); }
-function closeSaveModal() { document.getElementById('saveModal').classList.remove('visible'); }
-function copySaveData() { const t=document.getElementById('saveData');t.select();navigator.clipboard.writeText(t.value).then(()=>showToast('Kopiert!')).catch(()=>{document.execCommand('copy');showToast('Kopiert!');}); }
-function showLoadModal() { document.getElementById('loadData').value=''; document.getElementById('loadModal').classList.add('visible'); }
-function closeLoadModal() { document.getElementById('loadModal').classList.remove('visible'); }
-function loadProgress() { try{const d=JSON.parse(decodeURIComponent(escape(atob(document.getElementById('loadData').value.trim()))));if(d.state)Object.keys(d.state).forEach(k=>{if(k in state)state[k]=d.state[k];});if(d.examState)Object.keys(d.examState).forEach(k=>{if(k in examState)examState[k]=d.examState[k];});if(d.regState)Object.keys(d.regState).forEach(k=>{if(k in regState)regState[k]=d.regState[k];});if(d.currentSemester)currentSemester=d.currentSemester;if(d.wahlEntries)wahlEntries=d.wahlEntries;if(d.praktika)praktika=d.praktika;save();renderAll();closeLoadModal();showToast('Geladen!');}catch(e){showToast('Ungültiger Code!');} }
+function showSaveModal() {
+  const data = JSON.stringify({ state, examState, regState, currentSemester, wahlEntries, praktika }, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'jurmoduluebersicht-fortschritt.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('Datei gespeichert!');
+}
+function showLoadModal() { document.getElementById('fileInput').value = ''; document.getElementById('fileInput').click(); }
+function loadFromFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const d = JSON.parse(e.target.result);
+      if (d.state) Object.keys(d.state).forEach(k => { if (k in state) state[k] = d.state[k]; });
+      if (d.examState) Object.keys(d.examState).forEach(k => { if (k in examState) examState[k] = d.examState[k]; });
+      if (d.regState) Object.keys(d.regState).forEach(k => { if (k in regState) regState[k] = d.regState[k]; });
+      if (d.currentSemester) currentSemester = d.currentSemester;
+      if (d.wahlEntries) wahlEntries = d.wahlEntries;
+      if (d.praktika) praktika = d.praktika;
+      save(); renderAll();
+      showToast('Fortschritt geladen!');
+    } catch(err) { showToast('Ungültige Datei!'); }
+  };
+  reader.readAsText(file);
+}
 function resetAll() { if(confirm('Alles zurücksetzen?')){initState();save();renderAll();showToast('Zurückgesetzt.');} }
 function showToast(msg) { const t=document.getElementById('toast');t.textContent=msg;t.classList.add('visible');setTimeout(()=>t.classList.remove('visible'),2400); }
-
-document.getElementById('saveModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeSaveModal();});
-document.getElementById('loadModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLoadModal();});
 
 // INIT
 initState(); load(); buildSemesterOptions(); renderAll();
